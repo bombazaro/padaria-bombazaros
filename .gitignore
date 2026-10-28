@@ -1,0 +1,21 @@
+# Dependências e build
+node_modules/
+dist/
+studio/node_modules/
+studio/dist/
+studio/.sanity/
+
+# Variáveis de ambiente (nunca commitar)
+.env
+.env.*
+!.env.example
+
+# Fotos originais pesadas do site antigo (versões otimizadas vão para src/assets e para o Sanity)
+img/
+
+# Editor / sistema
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+*.log
