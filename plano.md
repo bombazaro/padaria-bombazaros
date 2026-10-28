@@ -44,7 +44,7 @@ de uma padaria é comercial. O Netlify Free permite uso comercial e ainda recebe
 - Mapa do Google (mesmo endereço do `iframe` atual).
 - CNPJ 57.204.824/0001-09 no rodapé.
 - Formulário "Trabalhe Conosco" (nome, idade, telefone, e-mail, cargo, experiência, currículo, mensagem).
-- Identidade visual: marrom `#3a1704`, dourado do trigo `#f2c94c`, logo `logo3.png` (versão branca).
+- Identidade visual: cores tiradas da logo (ver seção 4). Logos já vetorizadas em `src/assets/logos/`.
 
 **Mídia (cópia em `padaria-bombazaros/img/`, fora do git por ser pesada — ver Fase 3):**
 - Logos: `logo.png`, `logo2.png`, `logo3.png`, `bombazaro_logo_letras_grossas.png`.
@@ -188,22 +188,47 @@ No site, os tipos TypeScript espelham os esquemas (dá para gerá-los automatica
 
 ## 4. Identidade visual
 
-```
-Cores
-  marrom-escuro   #3a1704   (cabeçalho, rodapé, textos fortes)
-  marrom-médio    #6f4e37   (textos secundários)
-  dourado-trigo   #f2c94c   (botões, destaques — só sobre fundo escuro, por contraste)
-  creme           #fdf6ec   (fundo das seções)
-  branco          #ffffff
-  verde-whatsapp  #25d366   (só no botão do WhatsApp)
-  vermelho-ifood  #ea1d2c   (só no botão do iFood)
+Wireframe colorido de referência: artboard **"Início — colorido"** no canvas de wireframes.
 
-Fontes (via @fontsource, sem depender de CDN)
-  Títulos: "Playfair Display"
-  Textos:  "Nunito"
-```
+### Paleta (tirada da logo)
 
-Divisórias em "onda" (SVG) entre seções, cantos arredondados, sombras suaves, fotos com `aspect-ratio` fixo.
+| Token | Cor | Origem | Uso |
+|---|---|---|---|
+| `cafe` | `#3A1704` | texto da logo escura / site antigo | Textos, cabeçalho, rodapé, faixas escuras |
+| `caramelo` | `#8A5A2B` | detalhe do trigo (`#9B6938`) escurecido p/ passar no contraste | Subtítulos, etiquetas, ícones, bordas |
+| `trigo` | `#EEB50F` | trigo da logo | Botões principais, destaques, ondas entre seções |
+| `creme` | `#FBF5E9` | creme das letras, um tom mais quente | Fundo principal |
+| `creme-claro` | `#FEFDF5` | letras da logo | Cards, seções alternadas, texto sobre o café |
+
+Cores de marca de terceiros, **só nos próprios botões**: WhatsApp `#25D366`, iFood `#EA1D2C`.
+Verde e vermelho da bandeira ficam **só na logo**.
+
+### Regras de contraste (WCAG AA: texto ≥ 4,5:1)
+
+| Combinação | Contraste | Pode? |
+|---|---|---|
+| `cafe` sobre `creme` | 14,8 : 1 | ✅ texto principal |
+| `caramelo` sobre `creme` | 5,4 : 1 | ✅ texto secundário |
+| `cafe` sobre `trigo` (botão dourado) | 8,6 : 1 | ✅ |
+| `trigo` sobre `cafe` (faixas escuras) | 8,6 : 1 | ✅ |
+| `creme-claro` sobre `cafe` | 15,8 : 1 | ✅ |
+| `trigo` sobre `creme` | 1,7 : 1 | ❌ **nunca como texto** — só decoração/fundo de botão |
+| `#9B6938` (caramelo original) sobre `creme` | 4,3 : 1 | ❌ por isso usamos `#8A5A2B` |
+
+### Tipografia (via @fontsource, sem depender de CDN)
+- Títulos: **Playfair Display** (serifada clássica, conversa com a letra cursiva da logo sem competir com ela)
+- Textos: **Nunito** (arredondada, acolhedora, ótima leitura no celular)
+
+### Logos (`src/assets/logos/`)
+| Arquivo | Onde usar |
+|---|---|
+| `logo-clara.svg` | Fundo escuro: hero com vídeo, rodapé |
+| `logo-clara-grossa.svg` | Fundo escuro com foto "movimentada" atrás (lê melhor) |
+| `logo-escura.svg` | Fundo claro: cabeçalho, 404, Trabalhe Conosco |
+| `logo-alternativa-*.svg` | Reservas (outra fonte); usar só se os tios preferirem |
+
+Detalhes: divisórias em "onda" (SVG) dourada entre seções, cantos arredondados (12–16 px), sombras suaves
+puxadas para o marrom (`rgba(58,23,4,.08)`), fotos com `aspect-ratio` fixo.
 
 ---
 
@@ -277,10 +302,11 @@ padaria-bombazaros/
       ```css
       @import "tailwindcss";
       @theme {
-        --color-marrom: #3a1704;
-        --color-marrom-medio: #6f4e37;
-        --color-trigo: #f2c94c;
-        --color-creme: #fdf6ec;
+        --color-cafe: #3A1704;
+        --color-caramelo: #8A5A2B;
+        --color-trigo: #EEB50F;
+        --color-creme: #FBF5E9;
+        --color-creme-claro: #FEFDF5;
         --font-titulo: "Playfair Display", serif;
         --font-texto: "Nunito", sans-serif;
       }
