@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Padaria e Confeitaria Bombazaro's | Palhoça - SC</title>
+    <meta
+      name="description"
+      content="Pães, bolos, doces e salgados fresquinhos, feitos com amor por uma família apaixonada por panificação. Bela Vista, Palhoça/SC. Encomendas pelo WhatsApp."
+    />
+    <meta name="theme-color" content="#3A1704" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Preview ao compartilhar no WhatsApp / redes sociais -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Padaria e Confeitaria Bombazaro's" />
+    <meta property="og:title" content="Padaria e Confeitaria Bombazaro's" />
+    <meta
+      property="og:description"
+      content="Pães, bolos e doces fresquinhos no Bela Vista, em Palhoça/SC. Encomendas pelo WhatsApp."
+    />
+    <meta property="og:image" content="https://padariabombazaros.netlify.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://padariabombazaros.netlify.app/" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Dados para o Google (pesquisa local / Maps). TODO: completar endereço e horários quando confirmados. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Bakery",
+        "name": "Padaria e Confeitaria Bombazaro's",
+        "url": "https://padariabombazaros.netlify.app/",
+        "image": "https://padariabombazaros.netlify.app/og-image.jpg",
+        "telephone": "+55-48-99626-3034",
+        "servesCuisine": ["Padaria", "Confeitaria"],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Palhoça",
+          "addressRegion": "SC",
+          "addressCountry": "BR"
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": -27.6641, "longitude": -48.7114 },
+        "sameAs": [
+          "https://www.instagram.com/padaria_bombazaro.s/",
+          "https://www.ifood.com.br/delivery/palhoca-sc/padaria-e-confeitaria-bombazaros-bela-vista/8f191540-4292-41d1-bcab-53e3544b4008"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <!--
+      Formulário "espelho" para o Netlify detectar os campos no deploy.
+      O formulário de verdade é o React em src/pages/TrabalheConosco.tsx (os nomes precisam ser iguais).
+    -->
+    <form name="trabalhe-conosco" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" hidden>
+      <input name="bot-field" />
+      <input name="nome" />
+      <input name="idade" />
+      <input name="telefone" />
+      <input name="email" />
+      <select name="cargo"></select>
+      <textarea name="experiencia"></textarea>
+      <input type="file" name="curriculo" />
+      <textarea name="mensagem"></textarea>
+    </form>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

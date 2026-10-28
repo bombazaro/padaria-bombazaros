@@ -7,6 +7,13 @@ e publicado **sem custo**.
 - Repositório: https://github.com/bombazaro/padaria-bombazaros
 - Wireframes: https://claude.ai/artifact/U2cX2mnnQ2gHEV87hf7y2i (privado — compartilhe pelo menu *Share* se quiser mostrar para os tios)
 
+### Status (28/10/2026)
+- ✅ Fases 1–3, 5–10 em código: site completo rodando com dados de exemplo, testes, lint e build passando.
+- ✅ Fase 4 em código: painel em `studio/` com todos os esquemas (validado). **Falta:** criar o projeto na
+  conta Sanity, cadastrar o conteúdo real e convidar os tios (passo a passo no `README.md`).
+- ⏳ Fase 11: publicar no Netlify (precisa da sua conta).
+- ⏳ Preencher com os tios: endereço, horários, antecedência de encomendas (`src/data/info.ts`), fotos da equipe.
+
 ---
 
 ## 0. Resumo das decisões

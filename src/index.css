@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Paleta tirada da logo — ver seção 4 do plano.md */
+  --color-cafe: #3a1704;
+  --color-caramelo: #8a5a2b;
+  --color-trigo: #eeb50f;
+  --color-creme: #fbf5e9;
+  --color-creme-claro: #fefdf5;
+  --color-areia: #f3e6cc;
+  --color-whatsapp: #25d366;
+  --color-ifood: #ea1d2c;
+
+  --font-titulo: 'Playfair Display', Georgia, serif;
+  --font-texto: 'Nunito', system-ui, sans-serif;
+
+  --shadow-suave: 0 6px 24px rgb(58 23 4 / 0.08);
+  --shadow-forte: 0 12px 40px rgb(58 23 4 / 0.14);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-creme font-texto text-cafe antialiased;
+  }
+
+  /* Compensa o cabeçalho fixo ao rolar até uma seção */
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  :focus-visible {
+    @apply outline-3 outline-offset-2 outline-trigo;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility container-site {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+}
