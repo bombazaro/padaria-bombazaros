@@ -29,7 +29,7 @@ Aviso, data especial, equipe e horários de exemplo só aparecem com `npm run de
    cd studio
    npm install
    npx sanity login
-   npx sanity init --env --create-project "Bombazaros" --dataset production
+   npx sanity init --env .env --project-name "Bombazaros" --dataset production
    ```
    Isso cria o projeto e um `studio/.env` com o `SANITY_STUDIO_PROJECT_ID`.
 3. Copie `.env.example` para `.env` na raiz e coloque o mesmo ID em `VITE_SANITY_PROJECT_ID`.
