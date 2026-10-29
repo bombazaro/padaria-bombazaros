@@ -1,12 +1,40 @@
 # Padaria e Confeitaria Bombazaro's
 
-Site da Padaria e Confeitaria Bombazaro's (Alto Aririú, Palhoça/SC).
+Site da padaria e confeitaria da minha família, no Alto Aririú, em Palhoça/SC. Meus tios atualizam
+produtos, avisos, horários e fotos sozinhos, por um painel em português, sem precisar de programador.
 
-- **Site:** React 19 + TypeScript + Vite + Tailwind CSS v4, hospedado no Netlify
-- **Painel dos tios:** Sanity Studio (pasta `studio/`), para editar produtos, avisos, datas especiais, equipe, galeria e horários
-- **Formulário Trabalhe Conosco:** Netlify Forms (com anexo de currículo)
+**🌐 [padariabombazaros.netlify.app](https://padariabombazaros.netlify.app)**
 
-O passo a passo completo e as decisões do projeto estão em [`plano.md`](plano.md).
+<p align="center">
+  <img src="docs/captura-desktop.webp" alt="Página inicial do site no computador" width="72%">
+  &nbsp;
+  <img src="docs/captura-celular.webp" alt="Página inicial do site no celular" width="23%">
+</p>
+
+## Destaques
+
+- **Painel de conteúdo para quem não é da área** — [Sanity Studio](https://www.sanity.io) traduzido, com
+  campos explicados, validação ("Precisa ser depois de 12:00"), avisos que somem sozinhos numa data e
+  produtos que podem ser escondidos sem apagar.
+- **"Aberto agora" calculado no fuso de Brasília**, independente do fuso de quem visita, com suporte a
+  intervalo no meio do dia (`src/lib/horario.ts`, coberto por testes).
+- **Trabalhe Conosco com envio de currículo** pelo Netlify Forms, sem back-end: validação de arquivo,
+  telefone e e-mail, honeypot contra spam e foco no primeiro erro.
+- **Identidade visual a partir da logo** — logos vetorizadas por camada de cor (potrace), paleta com
+  contraste WCAG conferido e ícone feito com o "B" da própria logo.
+- **Acessibilidade** — link "pular para o conteúdo", menu com `aria-expanded` e Esc, `<dialog>` na galeria,
+  vídeo desligado com `prefers-reduced-motion` ou economia de dados.
+- **SEO local** — Open Graph para o preview no WhatsApp e JSON-LD `Bakery` com endereço e coordenadas.
+- **Nunca publica dado inventado** — sem o painel configurado, usa conteúdo de exemplo; avisos, horários e
+  equipe de exemplo só aparecem em desenvolvimento.
+- **Custo zero** — Netlify (site e formulário) e Sanity (painel e imagens) nos planos gratuitos.
+
+## Stack
+
+React 19 · TypeScript · Vite · Tailwind CSS v4 · React Router · TanStack Query · Embla Carousel ·
+Sanity (GROQ) · Netlify Forms · Vitest · oxlint · Prettier
+
+O plano completo, com as decisões, os wireframes e o passo a passo, está em [`plano.md`](plano.md).
 
 ## Rodando no computador
 
@@ -54,3 +82,9 @@ e-mail `padariabombazaros@gmail.com`. Depois disso, todo `git push` na `main` pu
 | Texto da história (Sobre) | `src/components/sections/Sobre.tsx` |
 | Campos do painel | `studio/schemaTypes/` (e os tipos em `src/types/conteudo.ts`) |
 | Ordem das seções | `src/pages/Inicio.tsx` |
+
+## Licença
+
+O **código** está sob a [licença MIT](LICENSE). O **nome, a logo, as fotos, os vídeos e os textos** da
+Padaria e Confeitaria Bombazaro's não fazem parte da licença: todos os direitos são reservados e eles não
+podem ser reutilizados sem autorização.
