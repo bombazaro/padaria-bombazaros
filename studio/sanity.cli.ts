@@ -7,4 +7,7 @@ export default defineCliConfig({
   },
   // Endereço do painel: https://bombazaros.sanity.studio
   studioHost: 'bombazaros',
+  deployment: {
+    appId: 'bp8y5efhdoymhm038c8iipbx',
+  },
 })
