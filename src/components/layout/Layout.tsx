@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { BotaoWhatsAppFlutuante } from './BotaoWhatsAppFlutuante'
 import { Cabecalho } from './Cabecalho'
@@ -8,9 +8,13 @@ import { Rodape } from './Rodape'
 /** Rola até a seção do link (/#sobre) ou para o topo ao trocar de página. */
 function useRolagemPorRota() {
   const { pathname, hash } = useLocation()
+  const paginaAnterior = useRef(pathname)
   useEffect(() => {
+    // A rolagem suave é cancelada quando a página inteira troca; só anima dentro da mesma página
+    const trocouDePagina = paginaAnterior.current !== pathname
+    paginaAnterior.current = pathname
     if (!hash) {
-      window.scrollTo(0, 0)
+      window.scrollTo({ top: 0, behavior: 'instant' })
       return
     }
     // espera a seção renderizar (o conteúdo do painel pode chegar depois)
@@ -20,7 +24,7 @@ function useRolagemPorRota() {
       const alvo = document.getElementById(id)
       if (alvo || ++tentativas > 20) {
         window.clearInterval(timer)
-        alvo?.scrollIntoView()
+        alvo?.scrollIntoView({ behavior: trocouDePagina ? 'instant' : 'smooth' })
       }
     }, 50)
     return () => window.clearInterval(timer)
