@@ -8,11 +8,24 @@ e publicado **sem custo**.
 - Wireframes: https://claude.ai/artifact/U2cX2mnnQ2gHEV87hf7y2i (privado — compartilhe pelo menu *Share* se quiser mostrar para os tios)
 
 ### Status (28/10/2026)
-- ✅ Fases 1–3, 5–10 em código: site completo rodando com dados de exemplo, testes, lint e build passando.
-- ✅ Fase 4 em código: painel em `studio/` com todos os esquemas (validado). **Falta:** criar o projeto na
-  conta Sanity, cadastrar o conteúdo real e convidar os tios (passo a passo no `README.md`).
-- ⏳ Fase 11: publicar no Netlify (precisa da sua conta).
-- ⏳ Preencher com os tios: endereço, horários, antecedência de encomendas (`src/data/info.ts`), fotos da equipe.
+
+**No ar:** https://padariabombazaros.netlify.app · painel: https://bombazaros.sanity.studio
+
+| Fase | Situação |
+|---|---|
+| 1–3 · Ambiente, wireframes, projeto | ✅ Feito (falta mostrar os wireframes aos tios — opcional agora que o site existe) |
+| 4 · Painel Sanity | ✅ Projeto `gmt6zudm` criado, painel publicado, CORS configurado. Horários aceitam intervalo no meio do dia |
+| 5 · Mídia | ✅ Logos em SVG, fotos em WebP, vídeo comprimido, favicon com o "B" da logo, `og-image.jpg` |
+| 6–7 · Layout e seções | ✅ Todas as seções, com conteúdo vindo do painel |
+| 8 · Trabalhe Conosco | ✅ Formulário detectado pelo Netlify e aviso por e-mail ativo. Falta um envio de teste |
+| 9 · SEO | ✅ Títulos, Open Graph, JSON-LD com endereço completo, `robots.txt`, `sitemap.xml` |
+| 10 · Qualidade | 🟡 Lint, 20 testes e build ok; testado em 390 e 1280 px. Falta celular real, Lighthouse e teste dos tios no painel |
+| 11 · Netlify | ✅ Publicado; todo `git push` na `main` atualiza o site |
+| 12 · Entregar para os tios | ⏳ Convidar no Sanity (*Members → Editor*), guia curto e treino no celular deles |
+| 13 · Depois de publicar | ⏳ Google Perfil da Empresa, link no Instagram/iFood, Search Console |
+
+**Conteúdo pendente (pelo painel):** horários dos outros dias, produtos com fotos, galeria (Bernardo + tios),
+equipe, datas especiais.
 
 ---
 
@@ -116,7 +129,7 @@ Wireframes de todas as telas: https://claude.ai/artifact/U2cX2mnnQ2gHEV87hf7y2i
 - [ ] Lista de produtos por categoria, descrição, se mostram preços e **etiquetas de alergênicos**
 - [ ] Fotos novas de produtos (horizontais, boa luz) e **fotos da família e da equipe** (com autorização de cada pessoa)
 - [ ] Nome e função de cada pessoa da equipe que vai aparecer no site
-- [ ] Encomendas: prazo mínimo, produtos aceitos
+- [ ] Encomendas: ~~prazo mínimo~~ (2 dias ✅), produtos aceitos
 - [ ] Quais datas especiais eles trabalham (Páscoa, Dia das Mães, Natal…) e o que vendem em cada uma
 - [ ] Cargos para o "Trabalhe Conosco"
 - [ ] Ano de fundação
@@ -280,13 +293,13 @@ padaria-bombazaros/
 ## 6. Passo a passo
 
 ### Fase 1 — Ambiente (≈ 30 min)
-- [ ] Instalar Node.js LTS via `nvm`:
+- [x] Instalar Node.js LTS via `nvm`:
       ```bash
       curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
       nvm install --lts && node -v && npm -v
       ```
 - [ ] Extensões no VS Code: ESLint, Prettier, Tailwind CSS IntelliSense, Sanity.io.
-- [ ] Contas: GitHub (`bombazaro` ✅), Netlify e Sanity (entrar com o GitHub ou Google).
+- [x] Contas: GitHub (`bombazaro` ✅), Netlify e Sanity (entrar com o GitHub ou Google).
 
 ### Fase 2 — Wireframes ✅ (feito) → validar
 - [x] Wireframes de baixa fidelidade: Início (desktop e celular), Trabalhe Conosco, 404.
@@ -294,7 +307,7 @@ padaria-bombazaros/
 - [ ] (Opcional) Depois de aprovado, fazer um protótipo com as cores e fontes reais antes de codar.
 
 ### Fase 3 — Criar o projeto (≈ 30 min)
-- [ ] Criar o site na raiz do repositório:
+- [x] Criar o site na raiz do repositório:
       ```bash
       cd ~/"Área de trabalho"/padaria-bombazaros
       npm create vite@latest site-tmp -- --template react-ts
@@ -305,7 +318,7 @@ padaria-bombazaros/
       npm install @fontsource/playfair-display @fontsource/nunito
       npm install motion   # opcional
       ```
-- [ ] Tailwind no `vite.config.ts` (plugin `@tailwindcss/vite`) e tema no `src/index.css`:
+- [x] Tailwind no `vite.config.ts` (plugin `@tailwindcss/vite`) e tema no `src/index.css`:
       ```css
       @import "tailwindcss";
       @theme {
@@ -318,74 +331,74 @@ padaria-bombazaros/
         --font-texto: "Nunito", sans-serif;
       }
       ```
-- [ ] `npm run dev` → http://localhost:5173. Commit e push.
+- [x] `npm run dev` → http://localhost:5173. Commit e push.
 
 ### Fase 4 — Painel Sanity (≈ 3–4 h)
-- [ ] Criar o painel:
+- [x] Criar o painel:
       ```bash
       npm create sanity@latest -- --template clean --typescript --output-path studio
       # escolher: novo projeto "Bombazaros", dataset "production" (público)
       ```
-- [ ] Escrever os esquemas da seção 3 em `studio/schemaTypes/` (com títulos e descrições em português,
+- [x] Escrever os esquemas da seção 3 em `studio/schemaTypes/` (com títulos e descrições em português,
       e `validation` para evitar campos vazios).
-- [ ] Organizar o menu lateral do painel (structure tool): *Produtos*, *Avisos*, *Datas especiais*, *Equipe*, *Galeria*, *Informações da loja*.
-- [ ] `cd studio && npm run dev` → testar em http://localhost:3333.
+- [x] Organizar o menu lateral do painel (structure tool): *Produtos*, *Avisos*, *Datas especiais*, *Equipe*, *Galeria*, *Informações da loja*.
+- [x] `cd studio && npm run dev` → testar em http://localhost:3333.
 - [ ] Cadastrar os produtos atuais usando as fotos de `img/carrossel/` (o Sanity otimiza na hora do upload).
-- [ ] Publicar o painel: `npx sanity deploy` → `https://bombazaros.sanity.studio`.
-- [ ] Em https://www.sanity.io/manage: CORS (`http://localhost:5173` e `https://padariabombazaros.netlify.app`)
+- [x] Publicar o painel: `npx sanity deploy` → `https://bombazaros.sanity.studio`.
+- [x] Em https://www.sanity.io/manage: CORS (`http://localhost:5173` e `https://padariabombazaros.netlify.app`)
       e convidar os tios pelo e-mail Google deles (papel *Editor*).
-- [ ] Gerar os tipos: `npx sanity schema extract && npx sanity typegen generate` → copiar para `src/types/`.
+- [x] ~~ Gerar os tipos: `npx sanity schema extract && npx sanity typegen generate` → copiar para `src/types/`.~~ (tipos escritos à mão em `src/types/conteudo.ts`)
 
 ### Fase 5 — Preparar mídia fixa (≈ 1 h)
-- [ ] Converter logos e fotos da loja para WebP (até 1600 px):
+- [x] Converter logos e fotos da loja para WebP (até 1600 px):
       ```bash
       sudo apt install webp ffmpeg imagemagick
       convert img/entrada.jpeg -resize '1600x1600>' -quality 80 src/assets/fachada.webp
       ```
-- [ ] Comprimir o vídeo do hero (< 2 MB, 720p, sem áudio) + imagem *poster*:
+- [x] Comprimir o vídeo do hero (< 2 MB, 720p, sem áudio) + imagem *poster*:
       ```bash
       ffmpeg -i ../padaria/videos/entrada.mp4 -vf scale=-2:720 -an -c:v libx264 -crf 28 \
              -preset slow -movflags +faststart public/videos/entrada.mp4
       ffmpeg -i public/videos/entrada.mp4 -frames:v 1 -q:v 3 src/assets/hero-poster.jpg
       ```
-- [ ] Favicon (https://realfavicongenerator.net) e `og-image.jpg` 1200×630.
+- [x] Favicon (https://realfavicongenerator.net) e `og-image.jpg` 1200×630.
 
 ### Fase 6 — Base e layout (≈ 2–3 h)
-- [ ] `.env` com `VITE_SANITY_PROJECT_ID` e `VITE_SANITY_DATASET` (e `.env.example` no git).
-- [ ] `src/lib/sanity.ts` (`createClient` com `useCdn: true`, `apiVersion` fixa) e `urlFor()` para imagens
+- [x] `.env` com `VITE_SANITY_PROJECT_ID` e `VITE_SANITY_DATASET` (e `.env.example` no git).
+- [x] `src/lib/sanity.ts` (`createClient` com `useCdn: true`, `apiVersion` fixa) e `urlFor()` para imagens
       (`urlFor(foto).width(600).auto('format').url()`).
-- [ ] `QueryClientProvider` (TanStack Query) no `main.tsx`.
-- [ ] Rotas em `App.tsx` (`/`, `/trabalhe-conosco`, `*` → 404).
-- [ ] `Header` fixo + menu hambúrguer acessível (`aria-expanded`, fecha com Esc/ao clicar).
-- [ ] `AnnouncementBar` (usa `useAvisoAtivo`; lembra no `sessionStorage` se o visitante fechou).
-- [ ] `Footer` (ano automático) e `WhatsAppFloat`.
-- [ ] Rolagem suave + `scroll-margin-top` por causa do header fixo.
+- [x] `QueryClientProvider` (TanStack Query) no `main.tsx`.
+- [x] Rotas em `App.tsx` (`/`, `/trabalhe-conosco`, `*` → 404).
+- [x] `Header` fixo + menu hambúrguer acessível (`aria-expanded`, fecha com Esc/ao clicar).
+- [x] `AnnouncementBar` (usa `useAvisoAtivo`; lembra no `sessionStorage` se o visitante fechou).
+- [x] `Footer` (ano automático) e `WhatsAppFloat`.
+- [x] Rolagem suave + `scroll-margin-top` por causa do header fixo.
 
 ### Fase 7 — Seções da página inicial (≈ 2–3 dias)
-- [ ] `Hero` — vídeo `autoPlay muted loop playsInline poster`; com `prefers-reduced-motion` mostra só a foto.
-- [ ] `SpecialDates` — consulta GROQ filtrando por data:
+- [x] `Hero` — vídeo `autoPlay muted loop playsInline poster`; com `prefers-reduced-motion` mostra só a foto.
+- [x] `SpecialDates` — consulta GROQ filtrando por data:
       ```groq
       *[_type == "dataEspecial" && inicio <= now() && fim >= now()] | order(inicio desc)[0]{
         titulo, texto, foto, prazoEncomenda, produtos[]->{nome, foto}
       }
       ```
       Sem data ativa, a seção não aparece.
-- [ ] `About` + `Team` — texto fixo + equipe do Sanity.
-- [ ] `Products` — filtro por categoria (`useState`), cards com `Tag`s, *skeleton* enquanto carrega,
+- [x] `About` + `Team` — texto fixo + equipe do Sanity.
+- [x] `Products` — filtro por categoria (`useState`), cards com `Tag`s, *skeleton* enquanto carrega,
       destaques primeiro, só `visivel == true`.
-- [ ] `Gallery` — Embla com setas, bolinhas, arrastar e *lightbox*.
-- [ ] `Orders` — botão de WhatsApp com mensagem pronta.
-- [ ] `Location` — horários do Sanity + `lib/horario.ts` calcula "Aberto agora" no fuso `America/Sao_Paulo`
+- [x] `Gallery` — Embla com setas, bolinhas, arrastar e *lightbox*.
+- [x] `Orders` — botão de WhatsApp com mensagem pronta.
+- [x] `Location` — horários do Sanity + `lib/horario.ts` calcula "Aberto agora" no fuso `America/Sao_Paulo`
       (`Intl.DateTimeFormat` com `timeZone`) + mapa `loading="lazy"`.
-- [ ] `Contact` — cards de WhatsApp, Instagram, iFood.
-- [ ] Imagens com `alt` (nome do produto), `loading="lazy"` (exceto topo), `width`/`height`.
-- [ ] Testes unitários simples (Vitest) para `horario.ts` e `whatsapp.ts` — são as funções com lógica.
+- [x] `Contact` — cards de WhatsApp, Instagram, iFood.
+- [x] Imagens com `alt` (nome do produto), `loading="lazy"` (exceto topo), `width`/`height`.
+- [x] Testes unitários simples (Vitest) para `horario.ts` e `whatsapp.ts` — são as funções com lógica.
 
 ### Fase 8 — Trabalhe Conosco com Netlify Forms (≈ 3 h)
 O Netlify detecta formulários lendo o HTML no deploy; como o React cria o formulário via JS, é preciso um
 formulário "espelho" escondido no `index.html`:
 
-- [ ] No `index.html`:
+- [x] No `index.html`:
       ```html
       <form name="trabalhe-conosco" netlify netlify-honeypot="bot-field" hidden>
         <input name="nome" /><input name="idade" /><input name="telefone" /><input name="email" />
@@ -393,33 +406,33 @@ formulário "espelho" escondido no `index.html`:
         <input type="file" name="curriculo" /><textarea name="mensagem"></textarea>
       </form>
       ```
-- [ ] No componente, enviar com `FormData` (necessário por causa do anexo):
+- [x] No componente, enviar com `FormData` (necessário por causa do anexo):
       ```ts
       const data = new FormData(event.currentTarget);
       data.append('form-name', 'trabalhe-conosco');
       await fetch('/', { method: 'POST', body: data }); // sem definir Content-Type manualmente
       ```
-- [ ] Honeypot `bot-field`; validação de tipo/tamanho do arquivo, telefone e e-mail; estados enviando/sucesso/erro.
-- [ ] Após o 1º deploy: Netlify → *Forms* → ativar detecção → *Form notifications* → e-mail `padariabombazaros@gmail.com`.
+- [x] Honeypot `bot-field`; validação de tipo/tamanho do arquivo, telefone e e-mail; estados enviando/sucesso/erro.
+- [x] Após o 1º deploy: Netlify → *Forms* → ativar detecção → *Form notifications* → e-mail `padariabombazaros@gmail.com`.
 - [ ] Conferir os limites atuais de envios/arquivos do Netlify Free em https://www.netlify.com/pricing/.
 
 ### Fase 9 — SEO e compartilhamento (≈ 2 h)
-- [ ] `<title>` e `<meta name="description">` por página (React 19 aceita `<title>` no componente).
-- [ ] Open Graph (`og:title`, `og:description`, `og:image`) para o preview no WhatsApp.
-- [ ] JSON-LD `Bakery` no `index.html` (nome, endereço, telefone, horários, geo, Instagram/iFood).
-- [ ] `robots.txt`, `sitemap.xml`, `lang="pt-BR"`.
+- [x] `<title>` e `<meta name="description">` por página (React 19 aceita `<title>` no componente).
+- [x] Open Graph (`og:title`, `og:description`, `og:image`) para o preview no WhatsApp.
+- [x] JSON-LD `Bakery` no `index.html` (nome, endereço, telefone, horários, geo, Instagram/iFood).
+- [x] `robots.txt`, `sitemap.xml`, `lang="pt-BR"`.
 
 ### Fase 10 — Qualidade e testes (≈ 2–3 h)
-- [ ] `npm run build` e `npm run lint` sem erros.
+- [x] `npm run build` e `npm run lint` sem erros.
 - [ ] Celular real (Android/iPhone): menu, carrossel, vídeo, formulário, faixa de aviso.
 - [ ] Telas de 360, 768, 1024 e 1440 px.
 - [ ] Lighthouse mobile: **Performance ≥ 90, Acessibilidade ≥ 95, SEO 100**.
 - [ ] Navegação só com teclado; contraste de cores.
 - [ ] Testar o painel **como os tios**: criar um aviso, trocar a foto de um produto, cadastrar uma data especial
       — tudo pelo celular — e ver aparecer no site.
-- [ ] Links externos com `target="_blank" rel="noopener noreferrer"`.
+- [x] Links externos com `target="_blank" rel="noopener noreferrer"`.
 
-### Fase 11 — Colocar no ar de graça (≈ 30 min)
+### Fase 11 — Colocar no ar de graça (≈ 30 min) ✅
 1. `netlify.toml` na raiz:
    ```toml
    [build]
