@@ -24,8 +24,8 @@ export const INFO = {
     comoChegar:
       'https://www.google.com/maps/dir/?api=1&destination=Padaria+e+Confeitaria+Bombazaro%27s+Palho%C3%A7a',
   },
-  /** Antecedência mínima para encomendas. TODO: confirmar com os tios. */
-  antecedenciaEncomenda: '[X dias]',
+  /** Antecedência mínima para encomendas. */
+  antecedenciaEncomenda: '2 dias',
 } as const
 
 export const CARGOS = [
