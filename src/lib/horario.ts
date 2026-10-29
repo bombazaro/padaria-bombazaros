@@ -40,6 +40,20 @@ function abreNoDia(h: HorarioDia | undefined): h is HorarioDia & { abre: string;
   return !!h && !h.fechado && !!h.abre && !!h.fecha
 }
 
+interface Turno {
+  abre: string
+  fecha: string
+}
+
+/** Períodos em que a loja fica aberta no dia; dois quando há intervalo. */
+function turnosDoDia(h: HorarioDia & { abre: string; fecha: string }): Turno[] {
+  if (!h.intervalo) return [{ abre: h.abre, fecha: h.fecha }]
+  return [
+    { abre: h.abre, fecha: h.intervalo.inicio },
+    { abre: h.intervalo.fim, fecha: h.fecha },
+  ]
+}
+
 export interface StatusLoja {
   aberto: boolean
   texto: string
@@ -52,13 +66,15 @@ export function statusAgora(horarios: HorarioDia[], data: Date = new Date()): St
   const hoje = porDia.get(dia)
 
   if (abreNoDia(hoje)) {
-    const abre = paraMinutos(hoje.abre)
-    const fecha = paraMinutos(hoje.fecha)
-    if (minutos >= abre && minutos < fecha) {
-      return { aberto: true, texto: `Aberto agora · fecha às ${hoje.fecha}` }
-    }
-    if (minutos < abre) {
-      return { aberto: false, texto: `Fechado · abre hoje às ${hoje.abre}` }
+    const turnos = turnosDoDia(hoje)
+    for (const [i, turno] of turnos.entries()) {
+      if (minutos >= paraMinutos(turno.abre) && minutos < paraMinutos(turno.fecha)) {
+        return { aberto: true, texto: `Aberto agora · fecha às ${turno.fecha}` }
+      }
+      if (minutos < paraMinutos(turno.abre)) {
+        const verbo = i === 0 ? 'abre' : 'reabre'
+        return { aberto: false, texto: `Fechado · ${verbo} hoje às ${turno.abre}` }
+      }
     }
   }
 
@@ -78,10 +94,18 @@ export interface LinhaHorario {
   horario: string
 }
 
-/** Junta dias seguidos com o mesmo horário: "Segunda a sexta · 07:00 – 20:00". */
+/**
+ * Junta dias seguidos com o mesmo horário: "Segunda a sexta · 07:00 – 20:00".
+ * Dias com intervalo têm um turno por linha.
+ */
 export function agruparHorarios(horarios: HorarioDia[]): LinhaHorario[] {
   const porDia = new Map(horarios.map((h) => [h.dia, h]))
-  const textoDe = (h: HorarioDia | undefined) => (abreNoDia(h) ? `${h.abre} – ${h.fecha}` : 'Fechado')
+  const textoDe = (h: HorarioDia | undefined) =>
+    abreNoDia(h)
+      ? turnosDoDia(h)
+          .map((t) => `${t.abre} – ${t.fecha}`)
+          .join('\n')
+      : 'Fechado'
 
   const grupos: { dias: DiaSemana[]; horario: string }[] = []
   for (const dia of ORDEM_EXIBICAO) {

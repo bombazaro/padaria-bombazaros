@@ -73,6 +73,8 @@ export interface HorarioDia {
   abre?: string
   /** "HH:MM" */
   fecha?: string
+  /** Intervalo no meio do dia, ex.: fecha às 12:00 e reabre às 14:00 */
+  intervalo?: { inicio: string; fim: string } | null
 }
 
 export interface Loja {

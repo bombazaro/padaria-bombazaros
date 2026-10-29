@@ -27,6 +27,7 @@ export const QUERY_GALERIA = /* groq */ `
 
 export const QUERY_LOJA = /* groq */ `
   *[_type == "loja"][0] {
-    "horarios": coalesce(horarios[]{ "dia": coalesce(dia, 0), "fechado": coalesce(fechado, false), abre, fecha }, []),
+    "horarios": coalesce(horarios[]{ "dia": coalesce(dia, 0), "fechado": coalesce(fechado, false), abre, fecha,
+      "intervalo": select(temIntervalo == true && defined(intervaloInicio) && defined(intervaloFim) => { "inicio": intervaloInicio, "fim": intervaloFim }) }, []),
     observacaoHorario, endereco
   }`

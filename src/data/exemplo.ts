@@ -219,7 +219,13 @@ export const LOJA: Loja = {
         { dia: 4, fechado: false, abre: '07:00', fecha: '20:00' },
         { dia: 5, fechado: false, abre: '07:00', fecha: '20:00' },
         { dia: 6, fechado: false, abre: '07:00', fecha: '18:00' },
-        { dia: 0, fechado: false, abre: '07:00', fecha: '12:00' },
+        {
+          dia: 0,
+          fechado: false,
+          abre: '07:00',
+          fecha: '19:00',
+          intervalo: { inicio: '12:00', fim: '14:00' },
+        },
       ]
     : [],
   observacaoHorario: SO_EM_DEV ? '[Exemplo] Horários a confirmar com os tios.' : undefined,

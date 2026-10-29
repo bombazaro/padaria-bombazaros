@@ -47,7 +47,7 @@ export function Localizacao() {
                   className="flex justify-between gap-4 border-b border-areia py-3.5 text-lg"
                 >
                   <dt>{linha.dias}</dt>
-                  <dd className="font-extrabold">{linha.horario}</dd>
+                  <dd className="text-right font-extrabold whitespace-pre-line">{linha.horario}</dd>
                 </div>
               ))}
             </dl>

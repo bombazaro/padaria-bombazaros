@@ -43,6 +43,32 @@ describe('statusAgora', () => {
     expect(statusAgora(semana, em('2026-10-31T15:00:00'))?.texto).toBe('Fechado · abre segunda às 07:00')
   })
 
+  describe('com intervalo no meio do dia', () => {
+    const domingo: HorarioDia[] = [
+      { dia: 0, fechado: false, abre: '07:00', fecha: '19:00', intervalo: { inicio: '12:00', fim: '14:00' } },
+    ]
+    // 2026-11-01 é domingo
+
+    it('aberto no primeiro turno fecha no início do intervalo', () => {
+      expect(statusAgora(domingo, em('2026-11-01T09:00:00'))?.texto).toBe('Aberto agora · fecha às 12:00')
+    })
+
+    it('durante o intervalo mostra quando reabre', () => {
+      expect(statusAgora(domingo, em('2026-11-01T12:30:00'))).toEqual({
+        aberto: false,
+        texto: 'Fechado · reabre hoje às 14:00',
+      })
+    })
+
+    it('aberto no segundo turno', () => {
+      expect(statusAgora(domingo, em('2026-11-01T15:00:00'))?.texto).toBe('Aberto agora · fecha às 19:00')
+    })
+
+    it('depois do último turno mostra o próximo dia', () => {
+      expect(statusAgora(domingo, em('2026-11-01T19:30:00'))?.texto).toBe('Fechado · abre domingo às 07:00')
+    })
+  })
+
   it('sem horários cadastrados não mostra status', () => {
     expect(statusAgora([], em('2026-10-28T10:00:00'))).toBeNull()
   })
@@ -54,6 +80,15 @@ describe('agruparHorarios', () => {
       { dias: 'Segunda a sexta', horario: '07:00 – 20:00' },
       { dias: 'Sábado', horario: '07:00 – 13:00' },
       { dias: 'Domingo', horario: 'Fechado' },
+    ])
+  })
+
+  it('mostra os dois turnos de um dia com intervalo', () => {
+    const comIntervalo: HorarioDia[] = [
+      { dia: 0, fechado: false, abre: '07:00', fecha: '19:00', intervalo: { inicio: '12:00', fim: '14:00' } },
+    ]
+    expect(agruparHorarios(comIntervalo)).toEqual([
+      { dias: 'Domingo', horario: '07:00 – 12:00\n14:00 – 19:00' },
     ])
   })
 

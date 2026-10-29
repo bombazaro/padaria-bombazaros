@@ -12,18 +12,43 @@ const DIAS = [
 
 const HORA = /^([01]\d|2[0-3]):[0-5]\d$/
 
-const campoHora = (name: string, title: string) =>
+interface Dia {
+  fechado?: boolean
+  temIntervalo?: boolean
+  abre?: string
+  intervaloInicio?: string
+  intervaloFim?: string
+  fecha?: string
+}
+
+const ORDEM_HORAS = ['abre', 'intervaloInicio', 'intervaloFim', 'fecha'] as const
+
+const campoHora = (
+  name: (typeof ORDEM_HORAS)[number],
+  title: string,
+  placeholder: string,
+  doIntervalo = false,
+) =>
   defineField({
     name,
     title,
     type: 'string',
-    placeholder: '07:00',
-    hidden: ({ parent }) => parent?.fechado,
+    placeholder,
+    hidden: ({ parent }) => parent?.fechado || (doIntervalo && !parent?.temIntervalo),
     validation: (r) =>
       r.custom((valor, { parent }) => {
-        if ((parent as { fechado?: boolean })?.fechado) return true
+        const dia = parent as Dia | undefined
+        if (dia?.fechado || (doIntervalo && !dia?.temIntervalo)) return true
         if (!valor) return 'Obrigatório'
-        return HORA.test(valor as string) ? true : 'Use o formato HH:MM, ex.: 07:00'
+        if (!HORA.test(valor as string)) return 'Use o formato HH:MM, ex.: 07:00'
+        // Cada horário precisa vir depois do anterior (abre < intervalo < reabre < fecha)
+        const anteriores = ORDEM_HORAS.slice(0, ORDEM_HORAS.indexOf(name))
+          .filter((c) => dia?.temIntervalo || !c.startsWith('intervalo'))
+          .map((c) => dia?.[c])
+        const anterior = anteriores.at(-1)
+        if (anterior && HORA.test(anterior) && (valor as string) <= anterior)
+          return `Precisa ser depois de ${anterior}`
+        return true
       }),
   })
 
@@ -55,14 +80,36 @@ export const loja = defineType({
               type: 'boolean',
               initialValue: false,
             }),
-            campoHora('abre', 'Abre às'),
-            campoHora('fecha', 'Fecha às'),
+            campoHora('abre', 'Abre às', '07:00'),
+            defineField({
+              name: 'temIntervalo',
+              title: 'Fecha no meio do dia?',
+              type: 'boolean',
+              description: 'Ex.: fecha das 12:00 às 14:00 para o almoço',
+              initialValue: false,
+              hidden: ({ parent }) => parent?.fechado,
+            }),
+            campoHora('intervaloInicio', 'Fecha para o intervalo às', '12:00', true),
+            campoHora('intervaloFim', 'Reabre às', '14:00', true),
+            campoHora('fecha', 'Fecha às', '19:00'),
           ],
           preview: {
-            select: { dia: 'dia', fechado: 'fechado', abre: 'abre', fecha: 'fecha' },
-            prepare: ({ dia, fechado, abre, fecha }) => ({
+            select: {
+              dia: 'dia',
+              fechado: 'fechado',
+              abre: 'abre',
+              fecha: 'fecha',
+              temIntervalo: 'temIntervalo',
+              intervaloInicio: 'intervaloInicio',
+              intervaloFim: 'intervaloFim',
+            },
+            prepare: ({ dia, fechado, abre, fecha, temIntervalo, intervaloInicio, intervaloFim }) => ({
               title: DIAS.find((d) => d.value === dia)?.title ?? 'Escolha o dia',
-              subtitle: fechado ? 'Fechado' : `${abre ?? '?'} – ${fecha ?? '?'}`,
+              subtitle: fechado
+                ? 'Fechado'
+                : temIntervalo
+                  ? `${abre ?? '?'} – ${intervaloInicio ?? '?'} e ${intervaloFim ?? '?'} – ${fecha ?? '?'}`
+                  : `${abre ?? '?'} – ${fecha ?? '?'}`,
             }),
           },
         }),
