@@ -1,6 +1,6 @@
 # Padaria e Confeitaria Bombazaro's
 
-Site da Padaria e Confeitaria Bombazaro's (Bela Vista, Palhoça/SC).
+Site da Padaria e Confeitaria Bombazaro's (Alto Aririú, Palhoça/SC).
 
 - **Site:** React 19 + TypeScript + Vite + Tailwind CSS v4, hospedado no Netlify
 - **Painel dos tios:** Sanity Studio (pasta `studio/`), para editar produtos, avisos, datas especiais, equipe, galeria e horários

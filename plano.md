@@ -111,7 +111,7 @@ Wireframes de todas as telas: https://claude.ai/artifact/U2cX2mnnQ2gHEV87hf7y2i
 - "Ops, essa fornada não saiu!" + botão para voltar ao início.
 
 ### Informações a confirmar com os tios (antes de publicar)
-- [ ] Endereço completo (rua, número, Bela Vista, Palhoça/SC, CEP)
+- [x] Endereço completo: R. Valcioni Duarte, 368 - Alto Aririú, Palhoça/SC, 88132-868
 - [ ] Horário de funcionamento (seg–sex, sáb, dom, feriados)
 - [ ] Lista de produtos por categoria, descrição, se mostram preços e **etiquetas de alergênicos**
 - [ ] Fotos novas de produtos (horizontais, boa luz) e **fotos da família e da equipe** (com autorização de cada pessoa)
