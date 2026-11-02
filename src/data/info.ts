@@ -5,7 +5,7 @@ export const INFO = {
   nome: "Padaria e Confeitaria Bombazaro's",
   nomeCurto: "Bombazaro's",
   cnpj: '57.204.824/0001-09',
-  bairro: 'Alto Aririú',
+  bairro: 'Loteamento Jardins 3',
   cidade: 'Palhoça/SC',
   whatsapp: {
     numero: '5548996263034',

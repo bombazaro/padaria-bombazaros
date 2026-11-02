@@ -1,6 +1,6 @@
 # Padaria e Confeitaria Bombazaro's
 
-Site da padaria e confeitaria da minha família, no Alto Aririú, em Palhoça/SC. Meus tios atualizam
+Site da padaria e confeitaria da minha família, no Loteamento Jardins 3, em Palhoça/SC. Meus tios atualizam
 produtos, avisos, horários e fotos sozinhos, por um painel em português, sem precisar de programador.
 
 **🌐 [padariabombazaros.netlify.app](https://padariabombazaros.netlify.app)**
